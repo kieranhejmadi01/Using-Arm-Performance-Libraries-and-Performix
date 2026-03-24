@@ -15,7 +15,7 @@ Rectangle::Rectangle(const float x_l, const float y_l, const float x_r, const fl
 }   
 
 
-bool Rectangle::withinRectangle(const Vec& v){
+bool Rectangle::withinRectangle(const Point& v){
     if(topRight[0] > v._x && v._x > bottomLeft[0]){
         if (topRight[1] > v._y && v._y > bottomLeft[1]){
             return true;
@@ -35,11 +35,11 @@ int Rectangle::countPointsInRectangle(const Vec1D& points){
     std::atomic<int> count{0};
 
     int size = static_cast<int>(points.getSize());
-    const std::vector<Vec>& data = points.getData();
+    const std::vector<Point>& data = points.getData();
 
 
     // iterate over the vector
-    int ans = std::ranges::count_if(data.begin(), data.end(),[this](const Vec& v){
+    int ans = std::ranges::count_if(data.begin(), data.end(),[this](const Point& v){
         return withinRectangle(v);    
     });    
 

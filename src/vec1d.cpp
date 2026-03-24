@@ -10,22 +10,22 @@
 #include "vect.h"
 #include "vec1D.h"
 
-Vec Vec1D::_randomVec(){
+Point Vec1D::_randomVec(){
 
     static std::mt19937 rd(std::random_device{}());
     // uniform distribution use a switch statement to decide RNG
     switch (dist){
         case UNIFORM:{
             static std::uniform_real_distribution<float> distrib(param_a,param_b);
-            return Vec(distrib(rd), distrib(rd));
+            return Point(distrib(rd), distrib(rd));
         }   
         case GAUSSIAN:{
             static std::normal_distribution<float> distrib(param_a,param_b);
-            return Vec(distrib(rd), distrib(rd));            
+            return Point(distrib(rd), distrib(rd));            
         }
         default:{
             static std::normal_distribution<float> distrib(param_a,param_b);
-            return Vec(distrib(rd), distrib(rd));            
+            return Point(distrib(rd), distrib(rd));            
         }
 
     }
@@ -33,14 +33,14 @@ Vec Vec1D::_randomVec(){
 };
 
 Vec1D::Vec1D(std::size_t n):
-    data(n,Vec{0.0f,0.0f}),
+    data(n,Point{0.0f,0.0f}),
     dist(BASIC_RNG::UNIFORM),
     n(n)
     {   
 }
 
 Vec1D::Vec1D(std::size_t n, BASIC_RNG dist, float param_a, float param_b)
-    :data(n, Vec{0.0f, 0.0f})
+    :data(n, Point{0.0f, 0.0f})
     ,n(n)
     ,dist(dist)
     ,param_a(param_a)
@@ -52,11 +52,11 @@ Vec1D::Vec1D(std::size_t n, BASIC_RNG dist, float param_a, float param_b)
     
 }
 
-const std::vector<Vec>& Vec1D::getData() const{
+const std::vector<Point>& Vec1D::getData() const{
     return data;
 };
 
-std::vector<Vec>& Vec1D::getData(){
+std::vector<Point>& Vec1D::getData(){
     return data;
 };
 
@@ -76,14 +76,14 @@ std::optional<Vec1D> Vec1D::operator+(const Vec1D& r) const{
         this->data,
         r.data,
         out.data.begin(),
-        [](const Vec&a, const Vec&b){
+        [](const Point&a, const Point&b){
             return a + b;
         }
     );
     return out;
 }
 
-std::ostream& operator<<(std::ostream& o, const Vec& v){
+std::ostream& operator<<(std::ostream& o, const Point& v){
     o << "[ " << v._x << ", " << v._y << " ]";
     return o;
 }

@@ -1,12 +1,12 @@
 #pragma once
 #include <iostream>
 
-class Vec;
+class Point;
 /**
  * 
  * Proxy object exist to accelerate comparison operators
  * by omission the square root function in calculating the magnitude
- * of a vector
+ * of a Point
  * 
  */
 
@@ -27,16 +27,16 @@ private:
 
 /**
  * 
- * A Single Point Vector in a 2-D plane
+ * A Single Point Pointtor in a 2-D plane
  * 
  */
-class Vec{
+class Point{
 public:
-    Vec(float x, float y); // constructor
+    Point(float x, float y); // constructor
 
     LengthProxy length() const; // return a LengthProxy object
     float lengthSlow() const; // returns actual length from Pythagoras' theorem
-    friend std::ostream& operator<<(std::ostream& o, const Vec& v);
+    friend std::ostream& operator<<(std::ostream& o, const Point& v);
     float angleFromOrigin();
     float _x{};
     float _y{};
