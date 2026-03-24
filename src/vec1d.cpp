@@ -1,14 +1,26 @@
 #include <random>
-#include <amath.h>
 #include <iostream>
-#include <armpl.h>
 #include <algorithm>
 #include <ranges>
 #include <optional>
 #include <chrono>
+#include <ctime>
+
+#ifndef USE_ARMPL
+    #define USE_ARMPL 1
+#endif
+
+#if USE_ARMPL
+    #include <amath.h>
+    #include <armpl.h>
+#endif
 
 #include "point.h"
 #include "vec1D.h"
+
+
+
+void createRandom1DVec(Vec1D& v, BASIC_RNG dist, float param_a, float param_b);
 
 Point Vec1D::_randomVec(){
 
@@ -16,15 +28,15 @@ Point Vec1D::_randomVec(){
     // uniform distribution use a switch statement to decide RNG
     switch (dist){
         case UNIFORM:{
-            static std::uniform_real_distribution<float> distrib(param_a,param_b);
+            std::uniform_real_distribution<float> distrib(param_a,param_b);
             return Point(distrib(rd), distrib(rd));
         }   
         case GAUSSIAN:{
-            static std::normal_distribution<float> distrib(param_a,param_b);
+            std::normal_distribution<float> distrib(param_a,param_b);
             return Point(distrib(rd), distrib(rd));            
         }
         default:{
-            static std::normal_distribution<float> distrib(param_a,param_b);
+            std::normal_distribution<float> distrib(param_a,param_b);
             return Point(distrib(rd), distrib(rd));            
         }
 
@@ -46,9 +58,12 @@ Vec1D::Vec1D(std::size_t n, BASIC_RNG dist, float param_a, float param_b)
     ,param_a(param_a)
     ,param_b(param_b)
 {
-    
-    std::srand(std::time(0));
-    std::ranges::generate(data, [this](){return _randomVec();});
+
+#if USE_ARMPL
+    createRandom1DVec(*this, dist, param_a, param_b);
+#else
+    std::generate(data.begin(), data.end(), [this](){ return _randomVec(); });
+#endif
     
 }
 
@@ -72,9 +87,10 @@ std::optional<Vec1D> Vec1D::operator+(const Vec1D& r) const{
     Vec1D out(r.n);
 
     // add each element and store in origin vec1d
-    std::ranges::transform(
-        this->data,
-        r.data,
+    std::transform(
+        this->data.begin(),
+        this->data.end(),
+        r.data.begin(),
         out.data.begin(),
         [](const Point&a, const Point&b){
             return a + b;
@@ -98,6 +114,8 @@ std::ostream& operator<<(std::ostream& o, const Vec1D& v){
 }
 
 void createRandom1DVec(Vec1D& v, BASIC_RNG dist, float param_a, float param_b ){
+
+#if USE_ARMPL
 
     VSLStreamStatePtr stream;
     vslNewStream(&stream, VSL_BRNG_SFMT19937, 777); // NOTE: seeded vsl stream with fixed value, 777
@@ -150,7 +168,41 @@ void createRandom1DVec(Vec1D& v, BASIC_RNG dist, float param_a, float param_b ){
         data[i]._x = tmp[2*i];
         data[i]._y = tmp[2*i+1];
     }
-    // map
+#else
+    std::mt19937 rd(std::random_device{}());
+    auto& data = v.getData();
+
+    switch (dist){
+        case UNIFORM:
+            {
+                std::uniform_real_distribution<float> distrib(param_a, param_b);
+                for (int i = 0; i < v.getSize(); i++){
+                    data[i]._x = distrib(rd);
+                    data[i]._y = distrib(rd);
+                }
+                break;
+            }
+        case GAUSSIAN:
+            {
+                std::normal_distribution<float> distrib(param_a, param_b);
+                for (int i = 0; i < v.getSize(); i++){
+                    data[i]._x = distrib(rd);
+                    data[i]._y = distrib(rd);
+                }
+                break;
+            }
+        default:
+            {
+                std::uniform_real_distribution<float> distrib(param_a, param_b);
+                for (int i = 0; i < v.getSize(); i++){
+                    data[i]._x = distrib(rd);
+                    data[i]._y = distrib(rd);
+                }
+                break;
+            }
+    }
+#endif
+
     return;
 };
 

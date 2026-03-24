@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <optional>
-#include <armpl.h>
 #include "point.h"
 
 
