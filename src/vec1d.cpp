@@ -100,7 +100,7 @@ std::ostream& operator<<(std::ostream& o, const Vec1D& v){
 void createRandom1DVec(Vec1D& v, BASIC_RNG dist, float param_a, float param_b ){
 
     VSLStreamStatePtr stream;
-    vslNewStream(&stream, VSL_BRNG_SFMT19937, 777);
+    vslNewStream(&stream, VSL_BRNG_SFMT19937, 777); // NOTE: seeded vsl stream with fixed value, 777
     
     std::vector<float> tmp(2 * v.getSize());
 
@@ -108,18 +108,6 @@ void createRandom1DVec(Vec1D& v, BASIC_RNG dist, float param_a, float param_b ){
         case UNIFORM:
             {
                 vsRngUniform(                               // single-precision version
-                    VSL_RNG_METHOD_UNIFORM_STD,
-                    stream,
-                    v.getSize(),
-                    tmp.data(),
-                    param_a,
-                    param_b
-                );
-                break;
-            }
-        case EXPONENTIAL:
-            {
-                vsRngExponential(
                     VSL_RNG_METHOD_UNIFORM_STD,
                     stream,
                     v.getSize(),
@@ -138,18 +126,6 @@ void createRandom1DVec(Vec1D& v, BASIC_RNG dist, float param_a, float param_b ){
                     tmp.data(),
                     param_a, // ACTUALLY MEAN
                     param_b // ACTUALLY STDDEV
-                );
-                break;
-            }
-        case RALEIGH:
-            {
-                vsRngRayleigh(
-                    VSL_RNG_METHOD_UNIFORM_STD,
-                    stream,
-                    v.getSize(),
-                    tmp.data(),
-                    param_a, // ACTUALLY DISPLACEMENT FACTOR
-                    param_b // ACTUALLY SCALEFACTOR
                 );
                 break;
             }

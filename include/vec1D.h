@@ -11,9 +11,7 @@ class Rectangle;
 
 enum BASIC_RNG{
         UNIFORM = 1,
-        EXPONENTIAL,
         GAUSSIAN,
-        RALEIGH,
 };
 
 /** 
