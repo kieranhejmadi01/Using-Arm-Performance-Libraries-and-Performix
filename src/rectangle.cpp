@@ -4,7 +4,7 @@
 #include <ranges> // C++20 
 
 #include "rectangle.h"
-#include "vect.h"
+#include "point.h"
 #include "vec1D.h"
 
 Rectangle::Rectangle(const float x_l, const float y_l, const float x_r, const float y_r)

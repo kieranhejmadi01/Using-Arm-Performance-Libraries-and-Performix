@@ -12,14 +12,14 @@
 #endif
 
 #include "rectangle.h"
-#include "vect.h"
+#include "point.h"
 #include "vec1D.h"
 #include "scopedTimer.h"
+#include "export_data.h"
 
 using namespace std;
 
-void exportVectorsToCSV(const Vec1D& vectors, const string& filename, const string& dist_type);
-
+// void exportVectorsToCSV(const Vec1D& vectors, const string& filename, const string& dist_type);
 
 const int NUM_POINTS = (1<<22);
 
@@ -65,22 +65,3 @@ int main(){
 }
 
 
-void exportVectorsToCSV(const Vec1D& vectors, const string& filename, const string& dist_type) {
-    ofstream file(filename);
-    if (!file.is_open()) {
-        cerr << "Error: Could not open file " << filename << " for writing." << endl;
-        return;
-    }
-    
-    // Write header
-    file << "x,y,type" << endl;
-    
-    // Write vector data
-    const auto& data = vectors.getData();
-    for (const auto& vec : data) {
-        file << vec._x << "," << vec._y << "," << dist_type << endl;
-    }
-    
-    file.close();
-    cout << "Data exported to " << filename << " (" << vectors.getSize() << " points)" << endl;
-}

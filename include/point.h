@@ -9,7 +9,6 @@ class Point;
  * of a Point
  * 
  */
-
 class LengthProxy{
 public:
     LengthProxy(float _x, float _y);

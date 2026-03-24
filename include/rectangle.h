@@ -1,6 +1,6 @@
 #pragma once
 
-class Vec; // forward declaration
+class Point; // forward declaration
 class Vec1D;
 
 /**
@@ -15,7 +15,7 @@ public:
     /**
      * Tests whether a 2-D point vector is within the rectangular box
      */
-    bool withinRectangle(const Vec& v);
+    bool withinRectangle(const Point& v);
     int countPointsInRectangle(const Vec1D& points);
     float bottomLeft[2];
     float topRight[2];

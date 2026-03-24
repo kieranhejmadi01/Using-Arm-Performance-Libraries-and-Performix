@@ -3,10 +3,10 @@
 #include <vector>
 #include <optional>
 #include <armpl.h>
+#include "point.h"
 
 
 
-class Vec;
 class Rectangle;
 
 enum BASIC_RNG{
@@ -18,7 +18,7 @@ enum BASIC_RNG{
 
 /** 
  * 
- *  Small wrapper class that creates an arbitrary vector of vec. 
+ *  Small wrapper class that creates an arbitrary vector of point. 
  *   Please Note: 1D is reffering to a 1 dimensional vector
  * 
 */
@@ -35,8 +35,8 @@ public:
      */
     Vec1D(std::size_t n); // initializes empty vector of size n
 
-    const std::vector<Vec>& getData() const;
-    std::vector<Vec>& getData(); // non-const version
+    const std::vector<Point>& getData() const;
+    std::vector<Point>& getData(); // non-const version
 
     /**
      * partially print to stdout
@@ -59,8 +59,8 @@ public:
     std::optional<Vec1D> operator+(const Vec1D& r) const;
 
 private:
-    Vec _randomVec();
-    std::vector<Vec> data{};
+    Point _randomVec();
+    std::vector<Point> data{};
     std::size_t n{};
     const BASIC_RNG dist;
     float param_a{0.0};
@@ -72,8 +72,8 @@ private:
  * Utility function to return the smallest magnitude point vector from std::vector of
  * point vectors
  */
-float min_length(const std::vector<Vec>& r);
-float min_length_slow(const std::vector<Vec>& r);
+float min_length(const std::vector<Point>& r);
+float min_length_slow(const std::vector<Point>& r);
 
 
 
@@ -92,12 +92,12 @@ void createRandom1DVec(Vec1D& v, BASIC_RNG dist, float param_a, float param_b );
  * Operation to add two Point Vectors together
  *  
  */
-Vec operator+(const Vec& l, const Vec& r);
+Point operator+(const Point& l, const Point& r);
 
 /**
  * 
  * Operation to minus the left hand point Vector from the right hand point vectors
  */
-Vec operator-(const Vec& l, const Vec& r);
+Point operator-(const Point& l, const Point& r);
 
 

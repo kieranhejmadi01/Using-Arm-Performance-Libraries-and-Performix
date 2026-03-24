@@ -6,7 +6,7 @@
 #include <iostream>
 #include <armpl.h>
 #include <chrono>
-#include "vect.h"
+#include "point.h"
 
 
 Point::Point(float x, float y):_x(x),_y(y){

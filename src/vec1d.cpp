@@ -7,7 +7,7 @@
 #include <optional>
 #include <chrono>
 
-#include "vect.h"
+#include "point.h"
 #include "vec1D.h"
 
 Point Vec1D::_randomVec(){
