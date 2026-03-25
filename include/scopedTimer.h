@@ -22,6 +22,12 @@ public:
     using Clock = std::chrono::steady_clock;
     Timer(const char* name, const UNIT unit):_start(Clock::now()), _funcName(name),_unit(unit){};
 
+    // prevent misuse of scoped timer
+    Timer(const Timer& other) = delete;
+    Timer& operator=(const Timer& other) = delete;
+    Timer(Timer&&) = delete;
+    Timer& operator=(Timer&&) = delete;
+    
     ~Timer(){
         Clock::time_point _end = Clock::now();
         switch(_unit){
