@@ -5,7 +5,7 @@ target_link_libraries(${SWEEP_TEST_EXECUTABLE}
         PUBLIC
             ${CORE_LIBRARY}        
 )
-target_link_libraries(${SWEEP_TEST_EXECUTABLE}
+target_link_libraries(${GENERATE_VISUALIZATION_EXECUTABLE}
         PUBLIC
             ${CORE_LIBRARY}        
 )

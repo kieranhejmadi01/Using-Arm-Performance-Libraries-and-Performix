@@ -27,10 +27,10 @@ void generateDistribution(const int NUM_ELEMENTS, BASIC_RNG distrubutionA, BASIC
     Vec1D b(NUM_ELEMENTS, distrubutionB, argB.first, argB.second);
 
     auto sum = a + b;
+
     if (sum.has_value()){
         // print out the sum of the 2 distributions.
         auto& result = sum.value();
-        exportVectorsToCSV(result, "vector_data.csv", "comb");
     } else{
         std::cout << "sizes of vec1D objects are not the same " << std::endl;
     }
@@ -40,18 +40,6 @@ void generateDistribution(const int NUM_ELEMENTS, BASIC_RNG distrubutionA, BASIC
 
 
 int main(){
-
-    // Generate range to sweep across
-
-    /*auto range = std::views::iota(8,16) | std::views::transform([](int x){return (1 << x);});
-    
-    std::pair<float, float> meanAndStdDeviationParams{30.0,50.0};
-    std::pair<float, float> minAndMaxParams{10.0,100.0};
-
-    for (auto num_elements : range){
-        generateDistribution(num_elements, BASIC_RNG::GAUSSIAN, BASIC_RNG::GAUSSIAN, meanAndStdDeviationParams, minAndMaxParams);
-    }
-    */
     
     std::pair<float, float> meanAndStdDeviationParams{30.0,50.0};
     std::pair<float, float> minAndMaxParams{10.0,100.0};

@@ -8,8 +8,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # create cmake options - USE_ARMPL
 option(USE_APL "Whether to build using Arm Performance libraries or not (default = off)" OFF)
-option(BUILD_SWEEP_MICROBENCH "Whether to build the microbench which sweeps through different distribution sizes" OFF)
-option(BUILD_GENERATE_VISUALIZATION "Whether to build binary to export data for visualizataion" OFF)
+option(BUILD_TESTS "Whether to build the helper tests, to sweep through values and generate visualizations" OFF)
+
 set(ARMPL_DIR "$ENV{ARMPL_DIR}" CACHE PATH "Path to Arm Performance Libraries root")
 
 
@@ -34,7 +34,6 @@ if(USE_APL)
     set(GENERATE_VISUALIZATION_EXECUTABLE generate_visualization_with_apl)
     add_subdirectory(src)
 else()
-    set(MAIN_EXECUTABLE main_without_apl)
     message(STATUS "NOT using Arm Performance Libraries")
     add_subdirectory(src)
 
@@ -45,6 +44,6 @@ endif()
 add_subdirectory(include)
 
 
-if(BUILD_SWEEP_MICROBENCH OR BUILD_GENERATE_VISUALIZATION)
+if(BUILD_TESTS)
     add_subdirectory(tests)
 endif()

@@ -34,8 +34,6 @@ void generateDistribution(const int NUM_ELEMENTS, BASIC_RNG distrubutionA, BASIC
         std::cout << "sizes of vec1D objects are not the same " << std::endl;
     }
 
-    // exportVectorsToCSV(ans.value(), "vector_data.csv", "comb");
-
 }
 
 
