@@ -6,13 +6,13 @@
 #include <chrono>
 #include <ctime>
 
-#ifndef USE_ARMPL
-    #define USE_ARMPL 1
-#endif
-
 #if USE_ARMPL
-    #include <amath.h>
-    #include <armpl.h>
+    #if defined(__aarch64__)
+        #include <amath.h>
+        #include <armpl.h>
+    #else
+        #error "USE_ARMPL enabled but not on AArch64"
+    #endif
 #endif
 
 #include "point.h"

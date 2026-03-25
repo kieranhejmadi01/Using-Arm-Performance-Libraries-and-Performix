@@ -5,13 +5,11 @@
 #include <utility>
 #include <string>
 
-#if USE_ARMPL
-    #if defined(__aarch64__)
-        #include <amath.h>
-        #include <armpl.h>
-    #else
-        #error "USE_ARMPL enabled but not on AArch64"
-    #endif
+#if defined(__aarch64__)
+    #include <amath.h> // Arm Math Libraries
+    #include <armpl.h> // Arm Performance Libraries. Tested on v26.01
+#elif defined(__x86_64__) || defined(__i386__)
+    #error "Please rebuild on an aarch64 machine"
 #endif
 
 #include "rectangle.h"
@@ -39,11 +37,11 @@ void generateDistribution(const int NUM_ELEMENTS, BASIC_RNG distrubutionA, BASIC
     if (sum.has_value()){
         // print out the sum of the 2 distributions.
         auto& result = sum.value();
-        exportVectorsToCSV(result, "vector_data.csv", "comb");
     } else{
         std::cout << "sizes of vec1D objects are not the same " << std::endl;
     }
 
+    // exportVectorsToCSV(ans.value(), "vector_data.csv", "comb");
 
 }
 
@@ -52,7 +50,7 @@ int main(){
 
     // Generate range to sweep across
 
-    /*auto range = std::views::iota(8,16) | std::views::transform([](int x){return (1 << x);});
+    auto range = std::views::iota(8,16) | std::views::transform([](int x){return (1 << x);});
     
     std::pair<float, float> meanAndStdDeviationParams{30.0,50.0};
     std::pair<float, float> minAndMaxParams{10.0,100.0};
@@ -60,14 +58,6 @@ int main(){
     for (auto num_elements : range){
         generateDistribution(num_elements, BASIC_RNG::GAUSSIAN, BASIC_RNG::GAUSSIAN, meanAndStdDeviationParams, minAndMaxParams);
     }
-    */
-    
-    std::pair<float, float> meanAndStdDeviationParams{30.0,50.0};
-    std::pair<float, float> minAndMaxParams{10.0,100.0};
-
-    generateDistribution((1<<14), BASIC_RNG::GAUSSIAN, BASIC_RNG::GAUSSIAN, meanAndStdDeviationParams, minAndMaxParams);
-
-
 
     return 0;
 }
