@@ -5,13 +5,6 @@
 #include <utility>
 #include <string>
 
-#if defined(__aarch64__)
-    #include <amath.h> // Arm Math Libraries
-    #include <armpl.h> // Arm Performance Libraries. Tested on v26.01
-#elif defined(__x86_64__) || defined(__i386__)
-    #error "Please rebuild on an aarch64 machine"
-#endif
-
 #include "rectangle.h"
 #include "point.h"
 #include "vec1D.h"
@@ -24,7 +17,7 @@ using namespace std;
 void generateDistribution(const int NUM_ELEMENTS, BASIC_RNG distrubutionA, BASIC_RNG distrubutionB, const std::pair<float, float>& argA, const std::pair<float, float>& argB){
     // step 1. unpack pair, first and second item in pair are the first and second argument respectively. 
     
-    auto title = std::string{"with APL Generating Distribution of size "} + std::to_string(NUM_ELEMENTS);
+    auto title = std::string{"Generating Distribution of size "} + std::to_string(NUM_ELEMENTS);
     Timer A(title.c_str(), UNIT::US);
     
     float paramA = argA.first;
