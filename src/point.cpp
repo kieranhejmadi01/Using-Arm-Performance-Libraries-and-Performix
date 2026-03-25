@@ -38,7 +38,7 @@ LengthProxy::operator float() const&&{
 }
 
 float Point::angleFromOrigin(){
-    float ans = armpl_acos_f32(_y/_x);
+    float ans = std::cos(_y/_x);
     return (180.0/M_PI)*ans;
 }
 

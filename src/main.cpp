@@ -5,15 +5,6 @@
 #include <utility>
 #include <string>
 
-#if USE_ARMPL
-    #if defined(__aarch64__)
-        #include <amath.h>
-        #include <armpl.h>
-    #else
-        #error "USE_ARMPL enabled but not on AArch64"
-    #endif
-#endif
-
 #include "rectangle.h"
 #include "point.h"
 #include "vec1D.h"
