@@ -86,7 +86,6 @@ std::optional<Vec1D> Vec1D::operator+(const Vec1D& r) const{
     }
     Vec1D out(r.n);
 
-    // add each element and store in origin vec1d
     std::transform(
         this->data.begin(),
         this->data.end(),
@@ -120,6 +119,7 @@ void createRandom1DVec(Vec1D& v, BASIC_RNG dist, float param_a, float param_b ){
     VSLStreamStatePtr stream;
     vslNewStream(&stream, VSL_BRNG_SFMT19937, 777); // NOTE: seeded vsl stream with fixed value, 777
     
+    const int count = 2*v.getSize();
     std::vector<float> tmp(2 * v.getSize());
 
     switch (dist){
@@ -128,7 +128,7 @@ void createRandom1DVec(Vec1D& v, BASIC_RNG dist, float param_a, float param_b ){
                 vsRngUniform(                               // single-precision version
                     VSL_RNG_METHOD_UNIFORM_STD,
                     stream,
-                    v.getSize(),
+                    count,
                     tmp.data(),
                     param_a,
                     param_b
@@ -140,7 +140,7 @@ void createRandom1DVec(Vec1D& v, BASIC_RNG dist, float param_a, float param_b ){
                 vsRngGaussian(
                     VSL_RNG_METHOD_UNIFORM_STD,
                     stream,
-                    v.getSize(),
+                    count,
                     tmp.data(),
                     param_a, // ACTUALLY MEAN
                     param_b // ACTUALLY STDDEV
@@ -152,7 +152,7 @@ void createRandom1DVec(Vec1D& v, BASIC_RNG dist, float param_a, float param_b ){
                 vsRngUniform(                               // single-precision version
                     VSL_RNG_METHOD_UNIFORM_STD,
                     stream,
-                    v.getSize(),
+                    count,
                     tmp.data(),
                     param_a,
                     param_b
@@ -168,6 +168,9 @@ void createRandom1DVec(Vec1D& v, BASIC_RNG dist, float param_a, float param_b ){
         data[i]._x = tmp[2*i];
         data[i]._y = tmp[2*i+1];
     }
+
+    vslDeleteStream(&stream);
+
 #else
     std::mt19937 rd(std::random_device{}());
     auto& data = v.getData();
