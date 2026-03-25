@@ -1,11 +1,15 @@
+#include <iostream>
 #include <random>
 #include <algorithm>
 #include <math.h>
-#include <amath.h>
-#include <ranges>
-#include <iostream>
-#include <armpl.h>
-#include <chrono>
+
+#if defined(__aarch64__)
+    #include <amath.h> // Arm Math Libraries
+#elif defined(__x86_64__) || defined(__i386__)
+    #error "Please rebuild on an aarch64 machine"
+#endif
+
+
 #include "point.h"
 
 
