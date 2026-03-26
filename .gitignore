@@ -1,5 +1,5 @@
 venv
-build
+build*
 vector_data.png
 vector*
 scratchpad.cpp
