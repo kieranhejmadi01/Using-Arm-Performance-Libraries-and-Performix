@@ -9,7 +9,7 @@
 #if USE_ARMPL
     #if defined(__aarch64__)
         #include <amath.h>
-        #include <armpl.h>
+        #include <../openrng/install/include/openrng.h>
     #else
         #error "USE_ARMPL enabled but not on AArch64"
     #endif

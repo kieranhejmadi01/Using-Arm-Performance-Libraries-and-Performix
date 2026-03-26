@@ -130,3 +130,22 @@ Generating Distribution of size 32768 = 2973 us
 ```
 
 
+## Build Debug Version of OpenRNG
+
+git clone https://gitlab.arm.com/libraries/openrng.git
+
+```bash
+g++ --std=c++20 -g -O0 \
+  src/main.cpp src/vec1d.cpp src/point.cpp src/rectangle.cpp src/export_data.cpp \
+  -DUSE_ARMPL=1 \
+  -I./include \
+  -I./openrng/install/include \
+  -I${ARMPL_DIR}/include \
+  -L./openrng/install/lib64 \
+  -L${ARMPL_DIR}/lib \
+  -lopenrng -lamath -lm \
+  -Wl,-rpath,$PWD/openrng/install/lib64 \
+  -Wl,-rpath,${ARMPL_DIR}/lib \
+  -o ./build/debug_openrng
+```
+
