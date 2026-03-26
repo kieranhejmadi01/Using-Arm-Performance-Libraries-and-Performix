@@ -1,7 +1,4 @@
 #include <iostream>
-#include <fstream>
-#include <ranges>
-#include <algorithm>
 #include <utility>
 #include <string>
 
@@ -13,9 +10,7 @@
 
 using namespace std;
 
-
 void generateDistribution(const int NUM_ELEMENTS, BASIC_RNG distrubutionA, BASIC_RNG distrubutionB, const std::pair<float, float>& argA, const std::pair<float, float>& argB){
-    // step 1. unpack pair, first and second item in pair are the first and second argument respectively. 
     
     auto title = std::string{"with APL Generating Distribution of size "} + std::to_string(NUM_ELEMENTS);
     Timer A(title.c_str(), UNIT::US);
@@ -41,14 +36,12 @@ void generateDistribution(const int NUM_ELEMENTS, BASIC_RNG distrubutionA, BASIC
 
 int main(){
     
-    std::pair<float, float> meanAndStdDeviationParams{30.0,50.0};
-    std::pair<float, float> minAndMaxParams{10.0,100.0};
+    std::pair<float, float> meanAndStdDeviationParams{30.0,50.0}; // Key parameters for a Gaussian Distribution
+    std::pair<float, float> minAndMaxParams{10.0,100.0}; // Key parameters for a uniform distribution
 
-    generateDistribution((1<<14), BASIC_RNG::GAUSSIAN, BASIC_RNG::GAUSSIAN, meanAndStdDeviationParams, minAndMaxParams);
+    generateDistribution((1<<14), BASIC_RNG::GAUSSIAN, BASIC_RNG::UNIFORM, meanAndStdDeviationParams, minAndMaxParams);
 
 
 
     return 0;
 }
-
-
