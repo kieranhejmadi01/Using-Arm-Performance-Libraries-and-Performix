@@ -43,6 +43,9 @@ cmake --build build/ --target main
 ```bash
 cmake -S . -B build -DBUILD_TESTS=1
 cmake --build build/ --target generate_visualization_baseline
+```
+
+```bash
 ./build/tests/generate_visualization_baseline
 ```
 
@@ -86,3 +89,44 @@ echo "export LD_LIBRARY_PATH=/opt/arm/arm-performance-libraries/lib:$LD_LIBRARY_
 ```
 
 Run the code hotspot recipe. 
+
+## Microbenchmark Generating Distributions
+
+```bash
+make clean
+cmake -S . -B build -DBUILD_TESTS=1
+cmake --build build --target sweep_microbench_baseline
+```
+
+```output
+./build/tests/sweep_microbench_baseline 
+Generating Distribution of size 256 = 983 us
+Generating Distribution of size 512 = 1827 us
+Generating Distribution of size 1024 = 3701 us
+Generating Distribution of size 2048 = 7301 us
+Generating Distribution of size 4096 = 14678 us
+Generating Distribution of size 8192 = 29260 us
+Generating Distribution of size 16384 = 58855 us
+Generating Distribution of size 32768 = 117070 us
+```
+
+
+
+```bash
+make clean
+cmake -S . -B build -DBUILD_TESTS=1 -DUSE_APL=1
+cmake --build build --target sweep_microbench_with_apl
+```
+```output
+./build/tests/sweep_microbench_with_apl 
+Generating Distribution of size 256 = 57 us
+Generating Distribution of size 512 = 59 us
+Generating Distribution of size 1024 = 97 us
+Generating Distribution of size 2048 = 187 us
+Generating Distribution of size 4096 = 382 us
+Generating Distribution of size 8192 = 732 us
+Generating Distribution of size 16384 = 1503 us
+Generating Distribution of size 32768 = 2973 us
+```
+
+
