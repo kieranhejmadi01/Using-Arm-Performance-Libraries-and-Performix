@@ -23,15 +23,9 @@ Vec1D generateDistribution(const int NUM_ELEMENTS, BASIC_RNG distrubutionA, BASI
 
     auto sum = a + b;
 
-    if (sum.has_value()){
-        // print out the sum of the 2 distributions.
-        auto& result = sum.value();
-        return result;
-    } else{
-        std::cout << "sizes of vec1D objects are not the same " << std::endl;
-    }
-
-
+    // print out the sum of the 2 distributions (guaranteed to be the same size). 
+    auto& result = sum.value();
+    return result;
 }
 
 
