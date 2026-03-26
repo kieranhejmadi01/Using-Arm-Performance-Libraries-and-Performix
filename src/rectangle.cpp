@@ -43,6 +43,6 @@ int Rectangle::countPointsInRectangle(const Vec1D& points){
         return withinRectangle(v);    
     });    
 
-    std::cout << "Answer = " << ans << std::endl;
+    // std::cout << "Answer = " << ans << std::endl;
     return ans;
 }
