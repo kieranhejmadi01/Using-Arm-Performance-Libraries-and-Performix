@@ -3,13 +3,6 @@
 #include <algorithm>
 #include <math.h>
 
-#if defined(__aarch64__)
-    #include <amath.h> // Arm Math Libraries
-#elif defined(__x86_64__) || defined(__i386__)
-    #error "Please rebuild on an aarch64 machine"
-#endif
-
-
 #include "point.h"
 
 
