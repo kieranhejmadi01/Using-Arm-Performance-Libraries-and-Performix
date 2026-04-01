@@ -110,8 +110,6 @@ Generating Distribution of size 16384 = 58855 us
 Generating Distribution of size 32768 = 117070 us
 ```
 
-
-
 ```bash
 make clean
 cmake -S . -B build -DBUILD_TESTS=1 -DUSE_APL=1
@@ -133,6 +131,7 @@ Generating Distribution of size 32768 = 2973 us
 ## Build Debug Version of OpenRNG
 
 git clone https://gitlab.arm.com/libraries/openrng.git
+
 
 ```bash
 g++ --std=c++20 -g -O0 \
