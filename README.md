@@ -130,8 +130,14 @@ Generating Distribution of size 32768 = 2973 us
 
 ## Build Debug Version of OpenRNG
 
-git clone https://gitlab.arm.com/libraries/openrng.git
+```bash
+git clone https://gitlab.arm.com/libraries/openrng.git && cd openrng
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PWD/install
+cmake --build build -j $(nproc -1)
+cmake --install build
+```
 
+Change directory to root of project. 
 
 ```bash
 g++ --std=c++20 -g -O0 \
